@@ -1,5 +1,5 @@
 import 'package:path/path.dart';
-import 'package:projeto_agenda/app/database/script.dart';
+import 'package:projeto_agenda/app/database/sqlite/script.dart';
 import 'package:sqflite/sqflite.dart';
 
 class Connection {

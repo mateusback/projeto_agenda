@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:path/path.dart';
-import 'package:projeto_agenda/app/database/connection.dart';
-import 'package:projeto_agenda/app/database/script.dart';
+import 'package:projeto_agenda/app/database/sqlite/dao/grades_dao_impl.dart';
+import 'package:projeto_agenda/app/domain/entities/grades.dart';
 import 'package:projeto_agenda/app/navigation/routes.dart';
-import 'package:sqflite/sqflite.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
 
-  Future<List<Map<String, dynamic>>> _buscarMaterias() async {
-    Database db = await Connection.get();
-    return db.query('grades');
+  Future<List<Grades>> _buscarMaterias() async {
+    return GradesDaoImpl().find();
   }
 
   @override
@@ -19,7 +16,7 @@ class HomePage extends StatelessWidget {
         future: _buscarMaterias(),
         builder: (context, futuro) {
           if (futuro.hasData) {
-            var list = futuro.data!;
+            List<Grades> list = futuro.data!;
             return Scaffold(
               appBar: AppBar(
                 title: const Text("Portal de Horas"),
@@ -37,11 +34,10 @@ class HomePage extends StatelessWidget {
                   var disciplina = list[i];
                   return ListTile(
                     leading: CircleAvatar(
-                      backgroundImage:
-                          NetworkImage(disciplina['url_avatar'] ?? ''),
+                      backgroundImage: NetworkImage(disciplina.urlAvatar ?? ''),
                     ),
-                    title: Text(disciplina['nome'] ?? ''),
-                    subtitle: Text(disciplina['nota'] ?? ''),
+                    title: Text(disciplina.nome ?? ''),
+                    subtitle: Text(disciplina.nota.toString() ?? ''),
                     trailing: Container(
                       width: 100,
                       child: Row(
