@@ -1,9 +1,9 @@
 const createTable = '''
 CREATE TABLE grades (
-  id INT PRIMARY KEY,
-  nome VRCHAR(200) NOT NULL,
-  professor VRCHAR(200) NOT NULL,
-  nota DOUBLE NOT NULL,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  nome VARCHAR(200) NOT NULL,
+  professor VARCHAR(200) NOT NULL,
+  nota REAL NOT NULL,
   url_avatar TEXT
 );
 ''';

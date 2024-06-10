@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:projeto_agenda/app/database/connection.dart';
 import 'package:projeto_agenda/app/database/script.dart';
 import 'package:projeto_agenda/app/navigation/routes.dart';
 import 'package:sqflite/sqflite.dart';
@@ -8,21 +9,8 @@ class HomePage extends StatelessWidget {
   HomePage({super.key});
 
   Future<List<Map<String, dynamic>>> _buscarMaterias() async {
-    try {
-      var path = await getDatabasesPath() + 'grades.db';
-      Database db = await openDatabase(
-        path,
-        version: 1,
-        onCreate: (db, version) {
-          db.execute(createTable);
-          db.execute(insertGrades);
-        },
-      );
-      return db.query('grades');
-    } catch (e) {
-      print(e);
-      return [];
-    }
+    Database db = await Connection.get();
+    return db.query('grades');
   }
 
   @override
