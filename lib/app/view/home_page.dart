@@ -9,15 +9,13 @@ class HomePage extends StatelessWidget {
   final _back = HomePageBack();
 
   CircleAvatar circleAvatar(String url) {
-    try {
-      return CircleAvatar(
-        backgroundImage: NetworkImage(url),
-      );
-    } catch (e) {
-      return const CircleAvatar(
-        child: Icon(Icons.developer_board),
-      );
-    }
+    return Uri.tryParse(url)!.isAbsolute
+        ? CircleAvatar(
+            backgroundImage: NetworkImage(url),
+          )
+        : const CircleAvatar(
+            child: Icon(Icons.developer_board),
+          );
   }
 
   Widget iconEditButton(VoidCallback onPressed) {
