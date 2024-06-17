@@ -7,7 +7,7 @@ class Connection {
 
   static Future<Database> get() async {
     if (_database == null) {
-      var path = join(await getDatabasesPath(), 'grades.db');
+      var path = join(await getDatabasesPath(), 'banco');
       _database = await openDatabase(
         path,
         version: 1,

@@ -38,10 +38,14 @@ dependencies:
   sqflite: ^2.3.3+1
   path:
   get_it: ^7.7.0
+  mobx: ^2.0.4
+  flutter_mobx: ^2.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  mobx_codegen: ^2.0.2
+  build_runner: ^2.1.4
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
