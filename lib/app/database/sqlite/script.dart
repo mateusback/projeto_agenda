@@ -10,7 +10,7 @@ CREATE TABLE grades (
 
 const insertGrades = '''
 INSERT INTO grades (nome, professor, nota, url_avatar)
-VALUES ('Matemática', 'XPTO', 10.0, 'https://cdn-icons-png.flaticon.com/512/3965/3965108.png'),
-       ('Programação Orientada a Objetos', 'XPTO2', 7.0, 'https://cdn-icons-png.flaticon.com/512/1269/1269070.png'),
-       ('Banco de Dados I', 'XPTO3', 8.5, 'https://cdn-icons-png.flaticon.com/512/2906/2906274.png');
+VALUES ('Matemática', 'XPTO', 10.0, 'https://img.icons8.com/?size=100&id=55206&format=png&color=000000'),
+       ('Programação Orientada a Objetos', 'XPTO2', 7.0, 'https://img.icons8.com/?size=100&id=SBEjRDmczSCC&format=png&color=000000'),
+       ('Banco de Dados I', 'XPTO3', 8.5, 'https://img.icons8.com/?size=100&id=KZHjwwenS7oK&format=png&color=000000');
 ''';

@@ -17,6 +17,8 @@ class Connection {
         },
       );
     }
+    //_database!.execute('delete from grades');
+    //_database!.execute(insertGrades);
     return _database!;
   }
 }

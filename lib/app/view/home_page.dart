@@ -1,65 +1,109 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_agenda/app/database/sqlite/dao/grades_dao_impl.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:projeto_agenda/app/domain/entities/grades.dart';
 import 'package:projeto_agenda/app/navigation/routes.dart';
+import 'package:projeto_agenda/app/view/home_page_back.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({super.key});
+  final _back = HomePageBack();
 
-  Future<List<Grades>> _buscarMaterias() async {
-    return GradesDaoImpl().find();
+  CircleAvatar circleAvatar(String url) {
+    try {
+      return CircleAvatar(
+        backgroundImage: NetworkImage(url),
+      );
+    } catch (e) {
+      return const CircleAvatar(
+        child: Icon(Icons.developer_board),
+      );
+    }
+  }
+
+  Widget iconEditButton(VoidCallback onPressed) {
+    return IconButton(
+      onPressed: onPressed,
+      icon: const Icon(Icons.edit),
+      color: Colors.orange,
+    );
+  }
+
+  Widget iconRemoveButton(BuildContext context, VoidCallback onPressed) {
+    return IconButton(
+        icon: const Icon(Icons.delete),
+        color: Colors.red,
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text("Excluir"),
+                content: const Text("Confirma a exclusão?"),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    child: const Text("Não"),
+                  ),
+                  TextButton(
+                    onPressed: onPressed,
+                    child: const Text("Sim"),
+                  ),
+                ],
+              );
+            },
+          );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _buscarMaterias(),
-        builder: (context, futuro) {
-          if (futuro.hasData) {
-            List<Grades> list = futuro.data!;
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text("Portal de Horas"),
-                actions: [
-                  IconButton(
-                      onPressed: () {
-                        Navigator.pushNamed(context, Routes.GRADES_FORM);
-                      },
-                      icon: const Icon(Icons.add))
-                ],
-              ),
-              body: ListView.builder(
-                itemCount: list.length,
-                itemBuilder: (context, i) {
-                  var disciplina = list[i];
-                  return ListTile(
-                    leading: CircleAvatar(
-                      backgroundImage: NetworkImage(disciplina.urlAvatar ?? ''),
-                    ),
-                    title: Text(disciplina.nome ?? ''),
-                    subtitle: Text(disciplina.nota.toString() ?? ''),
-                    trailing: Container(
-                      width: 100,
-                      child: Row(
-                        children: [
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.edit),
-                          ),
-                          IconButton(
-                            onPressed: () {},
-                            icon: const Icon(Icons.delete),
-                          ),
-                        ],
-                      ),
-                    ),
-                  );
+    return Scaffold(
+        appBar: AppBar(
+          title: const Text("Portal de Horas"),
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, Routes.GRADES_FORM);
                 },
-              ),
-            );
-          } else {
-            return Scaffold();
-          }
-        });
+                icon: const Icon(Icons.add))
+          ],
+        ),
+        body: Observer(builder: (context) {
+          return FutureBuilder(
+              future: _back.list,
+              builder: (context, futuro) {
+                if (!futuro.hasData) {
+                  return CircularProgressIndicator();
+                }
+                List<Grades> list = futuro.data!;
+                return ListView.builder(
+                  itemCount: list.length,
+                  itemBuilder: (context, i) {
+                    var disciplina = list[i];
+                    return ListTile(
+                      leading: circleAvatar(disciplina.urlAvatar),
+                      title: Text(disciplina.nome ?? ''),
+                      subtitle: Text(disciplina.nota.toString() ?? ''),
+                      trailing: Container(
+                        width: 100,
+                        child: Row(
+                          children: [
+                            iconEditButton(() {
+                              _back.goToForm(context, disciplina);
+                            }),
+                            iconRemoveButton(context, () {
+                              _back.remove(disciplina.id);
+                              Navigator.of(context).pop();
+                            }),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
+                );
+              });
+        }));
   }
 }
