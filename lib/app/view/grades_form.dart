@@ -5,22 +5,55 @@ import 'package:projeto_agenda/app/view/grades_form_back.dart';
 
 class GradesForm extends StatelessWidget {
   GradesFormBack? _back = null;
+  final _form = GlobalKey<FormState>();
 
-  Widget textField(
-      {required String label,
-      required String hint,
-      String? maskFormat,
-      TextInputType? keyboardType,
-      String? initValue}) {
-    var mask = MaskTextInputFormatter(mask: maskFormat);
+  Widget textFieldNome() {
     return TextFormField(
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
+      decoration: const InputDecoration(
+        labelText: 'Nome',
+        hintText: 'Informe o nome da matéria',
       ),
-      initialValue: initValue == 'null' ? '' : initValue,
-      keyboardType: keyboardType,
-      inputFormatters: mask != null ? [mask] : [],
+      validator: (value) => _back!.validateName(value!),
+      initialValue: _back!.grade!.nome,
+      onSaved: (newValue) => _back!.grade!.nome = newValue!,
+    );
+  }
+
+  Widget textFieldProfessor() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: 'Professor',
+        hintText: 'Informe o nome do professor',
+      ),
+      initialValue: _back!.grade!.professor,
+      onSaved: (newValue) => _back!.grade!.professor = newValue!,
+    );
+  }
+
+  Widget textFieldNota() {
+    var nota = _back!.grade!.nota;
+    var mask = MaskTextInputFormatter(mask: '##.##');
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: 'Nota',
+        hintText: 'Informe a nota da matéria',
+      ),
+      keyboardType: TextInputType.number,
+      inputFormatters: [mask],
+      initialValue: nota == null ? '' : nota.toString(),
+      validator: (value) => _back!.validateNota(double.parse(value!)),
+      onSaved: (newValue) => _back!.grade!.nota = double.parse(newValue!),
+    );
+  }
+
+  Widget textFieldIcone() {
+    return TextFormField(
+      decoration: const InputDecoration(
+        labelText: 'Link Icone',
+        hintText: 'Informe o endereço do ícone da matéria',
+      ),
+      initialValue: _back!.grade!.urlAvatar,
+      onSaved: (newValue) => _back!.grade!.urlAvatar = newValue!,
     );
   }
 
@@ -33,7 +66,12 @@ class GradesForm extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                _form.currentState!.validate();
+                _form.currentState!.save();
+                if (_back!.isFormValid) {
+                  _back!.save();
+                  Navigator.of(context).pop();
+                }
               },
               icon: const Icon(Icons.save),
             ),
@@ -42,26 +80,13 @@ class GradesForm extends StatelessWidget {
         body: Padding(
           padding: EdgeInsets.all(10),
           child: Form(
+            key: _form,
             child: Column(
               children: [
-                textField(
-                    label: 'Nome',
-                    hint: 'Informe o nome da matéria',
-                    initValue: _back!.grade!.nome.toString()),
-                textField(
-                    label: 'Professor',
-                    hint: 'Informe o nome do professor',
-                    initValue: _back!.grade!.professor.toString()),
-                textField(
-                    label: 'Nota',
-                    hint: 'Informe a nota da matéria',
-                    maskFormat: '##.##',
-                    keyboardType: TextInputType.number,
-                    initValue: _back!.grade!.nota.toString()),
-                textField(
-                    label: 'Endereço Icone',
-                    hint: 'Informe o endereço do ícone da matéria',
-                    initValue: _back!.grade!.urlAvatar.toString()),
+                textFieldNome(),
+                textFieldProfessor(),
+                textFieldNota(),
+                textFieldIcone(),
               ],
             ),
           ),

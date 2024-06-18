@@ -28,4 +28,14 @@ class GradesService {
       throw DomainLayerException('O nome deve ter no máximo 50 caracteres');
     }
   }
+
+  validateNota(double nota) {
+    if (nota == null) {
+      throw DomainLayerException('A nota é obrigatória');
+    } else if (nota > 10.00) {
+      throw DomainLayerException('A nota deve ser menor que 10.00');
+    } else if (nota < 0.00) {
+      throw DomainLayerException('A nota deve ser maior que 0.00');
+    }
+  }
 }
