@@ -17,11 +17,12 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
         appBarTheme: const AppBarTheme(
           color: Colors.green,
+          foregroundColor: Colors.white,
         ),
       ),
       routes: {
         Routes.HOME: (context) => HomePage(),
-        Routes.GRADES_FORM: (context) => const GradesForm(),
+        Routes.GRADES_FORM: (context) => GradesForm(),
       },
     );
   }

@@ -81,7 +81,7 @@ class HomePage extends StatelessWidget {
                   itemBuilder: (context, i) {
                     var disciplina = list[i];
                     return ListTile(
-                      leading: circleAvatar(disciplina.urlAvatar),
+                      leading: circleAvatar(disciplina.urlAvatar!),
                       title: Text(disciplina.nome ?? ''),
                       subtitle: Text(disciplina.nota.toString() ?? ''),
                       trailing: Container(
@@ -92,7 +92,7 @@ class HomePage extends StatelessWidget {
                               _back.goToForm(context, disciplina);
                             }),
                             iconRemoveButton(context, () {
-                              _back.remove(disciplina.id);
+                              _back.remove(disciplina.id!);
                               Navigator.of(context).pop();
                             }),
                           ],

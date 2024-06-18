@@ -7,7 +7,7 @@ class GradesService {
   var _repository = GetIt.I.get<GradesDao>();
 
   save(Grades grades) {
-    validateName(grades.nome);
+    validateName(grades.nome!);
     _repository.save(grades);
   }
 

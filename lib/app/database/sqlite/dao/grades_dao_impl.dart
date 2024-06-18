@@ -37,11 +37,11 @@ class GradesDaoImpl implements GradesDao {
     List<Grades> grades = List.generate(resultado.length, (i) {
       var linha = resultado[i];
       return Grades(
-        linha['id'],
-        linha['nome'],
-        linha['professor'],
-        linha['nota'],
-        linha['url_avatar'],
+        id: linha['id'],
+        nome: linha['nome'],
+        professor: linha['professor'],
+        nota: linha['nota'],
+        urlAvatar: linha['url_avatar'],
       );
     });
     return grades;
