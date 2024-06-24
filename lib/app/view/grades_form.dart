@@ -68,7 +68,7 @@ class GradesForm extends StatelessWidget {
               onPressed: () {
                 _form.currentState!.validate();
                 _form.currentState!.save();
-                if (_back!.isFormValid) {
+                if (_back!.IsFormValid()) {
                   _back!.save();
                   Navigator.of(context).pop();
                 }

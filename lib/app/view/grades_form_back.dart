@@ -11,14 +11,19 @@ class GradesFormBack = _GradesFormBack with _$GradesFormBack;
 abstract class _GradesFormBack with Store {
   Grades? grade;
   var _service = GetIt.I.get<GradesService>();
-  late bool _isNameValid;
-  late bool _isNotaValid;
+  bool _isNameValid;
+  bool _isNotaValid;
 
-  bool get isFormValid => _isNameValid && _isNotaValid;
+  @action
+  IsFormValid() {
+    return _isNameValid && _isNotaValid;
+  }
 
-  _GradesFormBack(BuildContext context) {
+  _GradesFormBack(BuildContext context)
+      : _isNameValid = false,
+        _isNotaValid = false {
     var parameter = ModalRoute.of(context)!.settings.arguments;
-    grade = (parameter == null) ? Grades() : parameter as Grades;
+    grade = ((parameter == null) ? Grades() : parameter) as Grades?;
   }
 
   save() async {

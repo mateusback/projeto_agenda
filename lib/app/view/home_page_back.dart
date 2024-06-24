@@ -13,7 +13,7 @@ abstract class _HomePageBack with Store {
   final GradesService _service = GetIt.I.get<GradesService>();
 
   @observable
-  Future<List<Grades>>? list;
+  ObservableFuture<List<Grades>>? list;
 
   _HomePageBack() {
     refreshlist();
@@ -21,7 +21,7 @@ abstract class _HomePageBack with Store {
 
   @action
   void refreshlist() {
-    list = _service.find();
+    list = ObservableFuture(_service.find());
   }
 
   void goToForm(BuildContext context, [Grades? grades]) {

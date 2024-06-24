@@ -12,13 +12,13 @@ mixin _$HomePageBack on _HomePageBack, Store {
   late final _$listAtom = Atom(name: '_HomePageBack.list', context: context);
 
   @override
-  Future<List<Grades>>? get list {
+  ObservableFuture<List<Grades>>? get list {
     _$listAtom.reportRead();
     return super.list;
   }
 
   @override
-  set list(Future<List<Grades>>? value) {
+  set list(ObservableFuture<List<Grades>>? value) {
     _$listAtom.reportWrite(value, super.list, () {
       super.list = value;
     });
