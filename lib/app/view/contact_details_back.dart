@@ -53,4 +53,5 @@ class ContactDetailsBack {
   launchEmail(Function(BuildContext context) showModalError) {
     _launchApp('mailto:${contact?.email}', showModalError, context);
   }
+  //Aula 32 - Explicação sobre cloud, Firestore e Realtime
 }
