@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:projeto_agenda/app/domain/entities/contact.dart';
-import 'package:projeto_agenda/app/my_app.dart';
 import 'package:projeto_agenda/app/view/contact_list_back.dart';
 
 class ContactList extends StatelessWidget {
@@ -83,7 +82,7 @@ class ContactList extends StatelessWidget {
                       leading: circleAvatar(contato.urlAvatar!),
                       title: Text(contato.nome ?? ''),
                       onTap: () {
-                        _back.goToDetails(context);
+                        _back.goToDetails(context, contato);
                       },
                       subtitle: Text(contato.telefone ?? ''),
                       trailing: Container(
