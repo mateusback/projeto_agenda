@@ -19,7 +19,7 @@ class GradesService {
     return _repository.find();
   }
 
-  validateName(String name) {
+  validateName(String? name) {
     if (name == null || name.isEmpty) {
       throw DomainLayerException('O nome é obrigatório');
     } else if (name.length < 3) {
@@ -29,7 +29,7 @@ class GradesService {
     }
   }
 
-  validateNota(double nota) {
+  validateNota(double? nota) {
     if (nota == null) {
       throw DomainLayerException('A nota é obrigatória');
     } else if (nota > 10.00) {

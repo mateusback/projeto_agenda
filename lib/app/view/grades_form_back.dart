@@ -1,25 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:mobx/mobx.dart';
 import 'package:projeto_agenda/app/domain/entities/grades.dart';
 import 'package:projeto_agenda/app/domain/services/grades_service.dart';
 
-part 'grades_form_back.g.dart';
-
-class GradesFormBack = _GradesFormBack with _$GradesFormBack;
-
-abstract class _GradesFormBack with Store {
+class GradesFormBack {
   Grades? grade;
   var _service = GetIt.I.get<GradesService>();
   bool _isNameValid;
   bool _isNotaValid;
 
-  @action
-  IsFormValid() {
-    return _isNameValid && _isNotaValid;
-  }
+  bool get isValid => _isNameValid && _isNotaValid;
 
-  _GradesFormBack(BuildContext context)
+  GradesFormBack(BuildContext context)
       : _isNameValid = false,
         _isNotaValid = false {
     var parameter = ModalRoute.of(context)!.settings.arguments;

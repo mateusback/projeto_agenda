@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:projeto_agenda/app/domain/entities/grades.dart';
-import 'package:projeto_agenda/app/navigation/routes.dart';
 import 'package:projeto_agenda/app/view/home_page_back.dart';
 
 class HomePage extends StatelessWidget {
@@ -63,7 +62,7 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  Navigator.pushNamed(context, Routes.GRADES_FORM);
+                  _back.goToForm(context, Grades());
                 },
                 icon: const Icon(Icons.add))
           ],

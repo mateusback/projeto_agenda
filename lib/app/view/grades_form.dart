@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:projeto_agenda/app/view/grades_form_back.dart';
 
 class GradesForm extends StatelessWidget {
-  GradesFormBack? _back = null;
-  final _form = GlobalKey<FormState>();
+  GradesFormBack? _back;
+  var _form = GlobalKey<FormState>();
 
   Widget textFieldNome() {
     return TextFormField(
@@ -68,7 +67,7 @@ class GradesForm extends StatelessWidget {
               onPressed: () {
                 _form.currentState!.validate();
                 _form.currentState!.save();
-                if (_back!.IsFormValid()) {
+                if (_back!.isValid) {
                   _back!.save();
                   Navigator.of(context).pop();
                 }
@@ -78,7 +77,7 @@ class GradesForm extends StatelessWidget {
           ],
         ),
         body: Padding(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           child: Form(
             key: _form,
             child: Column(
