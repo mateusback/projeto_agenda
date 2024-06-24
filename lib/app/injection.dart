@@ -1,10 +1,13 @@
+import 'package:projeto_agenda/app/domain/interfaces/contact_dao.dart';
+import 'package:projeto_agenda/app/domain/services/contact_service.dart';
+import 'database/sqlite/dao/contact_dao_impl.dart';
+import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:projeto_agenda/app/database/sqlite/dao/grades_dao_impl.dart';
-import 'package:projeto_agenda/app/domain/interfaces/grades_dao.dart';
-import 'package:projeto_agenda/app/domain/services/grades_service.dart';
 
-setupInjection() {
+setupInjection() async {
   GetIt getIt = GetIt.I;
-  getIt.registerSingleton<GradesDao>(GradesDaoImpl());
-  getIt.registerSingleton<GradesService>(GradesService());
+
+  WidgetsFlutterBinding.ensureInitialized();
+  getIt.registerSingleton<ContactDAO>(ContactDAOImpl());
+  getIt.registerSingleton<ContactService>(ContactService());
 }

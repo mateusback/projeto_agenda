@@ -1,10 +1,13 @@
+
+
 class DomainLayerException implements Exception {
-  String message;
+  String cause; 
 
-  DomainLayerException(this.message);
+  DomainLayerException(this.cause);
 
-  @override
-  String toString() {
-    return message;
+  @override 
+  String toString(){
+    return cause;
   }
+
 }

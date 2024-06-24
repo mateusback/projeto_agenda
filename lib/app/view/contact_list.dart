@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:projeto_agenda/app/domain/entities/grades.dart';
-import 'package:projeto_agenda/app/view/home_page_back.dart';
+import 'package:projeto_agenda/app/domain/entities/contact.dart';
+import 'package:projeto_agenda/app/view/contact_list_back.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({super.key});
-  final _back = HomePageBack();
+class ContactList extends StatelessWidget {
+  final _back = ContactListBack();
 
   CircleAvatar circleAvatar(String url) {
     return Uri.tryParse(url)!.isAbsolute
@@ -62,7 +61,7 @@ class HomePage extends StatelessWidget {
           actions: [
             IconButton(
                 onPressed: () {
-                  _back.goToForm(context, Grades());
+                  _back.goToForm(context, Contact());
                 },
                 icon: const Icon(Icons.add))
           ],
@@ -74,24 +73,24 @@ class HomePage extends StatelessWidget {
                 if (!futuro.hasData) {
                   return CircularProgressIndicator();
                 }
-                List<Grades> list = futuro.data!;
+                List<Contact> list = futuro.data!;
                 return ListView.builder(
                   itemCount: list.length,
                   itemBuilder: (context, i) {
-                    var disciplina = list[i];
+                    var contato = list[i];
                     return ListTile(
-                      leading: circleAvatar(disciplina.urlAvatar!),
-                      title: Text(disciplina.nome ?? ''),
-                      subtitle: Text(disciplina.nota.toString() ?? ''),
+                      leading: circleAvatar(contato.urlAvatar!),
+                      title: Text(contato.nome ?? ''),
+                      subtitle: Text(contato.telefone ?? ''),
                       trailing: Container(
                         width: 100,
                         child: Row(
                           children: [
                             iconEditButton(() {
-                              _back.goToForm(context, disciplina);
+                              _back.goToForm(context, contato);
                             }),
                             iconRemoveButton(context, () {
-                              _back.remove(disciplina.id!);
+                              _back.remove(contato.id!, context);
                               Navigator.of(context).pop();
                             }),
                           ],

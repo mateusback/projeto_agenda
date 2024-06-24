@@ -1,29 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:projeto_agenda/app/view/grades_form.dart';
-import 'package:projeto_agenda/app/navigation/routes.dart';
-
-import 'view/home_page.dart';
+import 'package:projeto_agenda/app/view/contact_form.dart';
+import 'package:projeto_agenda/app/view/contact_list.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  static const HOME = '/';
+  static const CONTACT_FORM = 'contact-form';
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Portal de Horas',
+      title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        appBarTheme: const AppBarTheme(
-          color: Colors.green,
-          foregroundColor: Colors.white,
-        ),
+        primarySwatch: Colors.blue,
       ),
       routes: {
-        Routes.HOME: (context) => HomePage(),
-        Routes.GRADES_FORM: (context) => GradesForm(),
+        HOME: (context) => ContactList(),
+        CONTACT_FORM: (context) => ContactForm(),
       },
     );
   }
